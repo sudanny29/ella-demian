@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ella Demian, BSN(C), RN(C) – Nursing Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --cream: #FAF7F2;
+      --warm-white: #FFFDF9;
+      --gold: #C4A265;
+      --gold-light: #D4BA85;
+      --gold-dark: #8B7242;
+      --charcoal: #2C2C2C;
+      --text: #3A3A3A;
+      --text-light: #7A7A7A;
+      --border: #E8E0D4;
+      --card-bg: #F5F0E8;
+      --accent-green: #6B8F71;
+      --section-bg: #F0EBE3;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--warm-white);
+      color: var(--text);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    section[id] { scroll-margin-top: 90px; }
+
+    .serif { font-family: 'Playfair Display', Georgia, serif; }
+
+    /* Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 60px;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(250, 247, 242, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 22px;
+      letter-spacing: 2px;
+      text-transform: lowercase;
+      color: var(--gold-dark);
+    }
+
+    .nav-toggle {
+      width: 28px; height: 28px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .nav-toggle span {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+
+    /* Nav Overlay */
+    .nav-overlay {
+      position: fixed; inset: 0;
+      background: var(--cream);
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .nav-overlay.active { opacity: 1; pointer-events: all; }
+
+    .nav-overlay a {
+      font-family: 'Playfair Display', serif;
+      font-size: 42px;
+      font-weight: 600;
+      color: var(--charcoal);
+      transition: color 0.3s;
+    }
+
+    .nav-overlay a:hover { color: var(--gold); }
+
+    .nav-close {
+      position: absolute;
+      top: 24px; right: 60px;
+      font-size: 36px;
+      cursor: pointer;
+      font-weight: 300;
+      color: var(--text-light);
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      padding: 140px 60px 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: var(--cream);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .hero-name-block { max-width: 65%; }
+
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(60px, 9vw, 120px);
+      font-weight: 700;
+      line-height: 0.95;
+      letter-spacing: -3px;
+      color: var(--charcoal);
+    }
+
+    .hero-credentials {
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--gold);
+      margin-top: 16px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .hero-avatar-wrapper {
+      width: 180px; height: 180px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+      border: 4px solid var(--gold-light);
+      box-shadow: 0 8px 32px rgba(196, 162, 101, 0.2);
+    }
+
+    .hero-avatar {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+      transform: scale(1.4);
+    }
+
+    .hero-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 60px;
+    }
+
+    .hero-email {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text-light);
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .hero-email:hover { color: var(--gold); }
+
+    .hero-email .copy-icon { width: 16px; height: 16px; opacity: 0.5; }
+
+    .hero-intro {
+      max-width: 500px;
+      font-size: clamp(20px, 2.2vw, 28px);
+      font-weight: 600;
+      line-height: 1.4;
+      letter-spacing: -0.3px;
+      text-align: right;
+      color: var(--charcoal);
+    }
+
+    .hero-intro span { color: var(--gold); }
+
+    /* Section styles */
+    .section-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 80px 60px 40px;
+    }
+
+    .section-label {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 600;
+      color: var(--gold-light);
+    }
+
+    .section-badge {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gold-dark);
+      background: rgba(196, 162, 101, 0.15);
+      padding: 6px 16px;
+      border-radius: 20px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* About Section */
+    .about-section { background: var(--warm-white); }
+
+    .about-content { padding: 0 60px 80px; }
+
+    .about-text-large {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(26px, 3.5vw, 42px);
+      font-weight: 600;
+      line-height: 1.35;
+      letter-spacing: -0.5px;
+      color: var(--charcoal);
+      max-width: 700px;
+    }
+
+    .about-row {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      gap: 48px;
+      margin-top: 60px;
+    }
+
+    .about-details {
+      max-width: 480px;
+      flex: 1;
+      align-self: center;
+    }
+
+    .about-description {
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 1.8;
+      color: var(--text-light);
+    }
+
+    .about-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 24px;
+    }
+
+    .about-tag {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gold-dark);
+      background: var(--card-bg);
+      padding: 6px 14px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    .about-image {
+      width: 40%;
+      max-width: 420px;
+      border-radius: 16px;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    /* Stats Row */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      padding: 0 60px 80px;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 32px 24px;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .stat-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-light);
+      margin-top: 8px;
+      line-height: 1.4;
+    }
+
+    /* Clinical Experience */
+    .clinical-section { background: var(--section-bg); }
+
+    .clinical-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      padding: 0 60px 80px;
+    }
+
+    .clinical-card {
+      background: var(--warm-white);
+      border-radius: 12px;
+      padding: 24px;
+      border-left: 4px solid var(--gold-light);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .clinical-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    }
+
+    .clinical-card-title {
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--charcoal);
+      margin-bottom: 4px;
+    }
+
+    .clinical-card-facility {
+      font-size: 13px;
+      color: var(--gold-dark);
+      font-weight: 500;
+    }
+
+    .clinical-card-detail {
+      font-size: 13px;
+      color: var(--text-light);
+      margin-top: 4px;
+    }
+
+    .clinical-card-hours {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gold);
+      background: rgba(196,162,101,0.1);
+      padding: 3px 10px;
+      border-radius: 12px;
+      display: inline-block;
+      margin-top: 8px;
+    }
+
+    /* Work Experience */
+    .work-section { background: var(--warm-white); }
+
+    .work-timeline {
+      padding: 0 60px 80px;
+      max-width: 900px;
+    }
+
+    .work-item {
+      position: relative;
+      padding-left: 32px;
+      padding-bottom: 48px;
+      border-left: 2px solid var(--border);
+    }
+
+    .work-item:last-child { padding-bottom: 0; }
+
+    .work-item::before {
+      content: '';
+      position: absolute;
+      left: -7px; top: 6px;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--gold);
+      border: 3px solid var(--warm-white);
+    }
+
+    .work-dates {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .work-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--charcoal);
+      margin-top: 4px;
+    }
+
+    .work-company {
+      font-size: 14px;
+      color: var(--text-light);
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    .work-bullets {
+      list-style: none;
+      margin-top: 12px;
+    }
+
+    .work-bullets li {
+      font-size: 14px;
+      color: var(--text-light);
+      line-height: 1.7;
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .work-bullets li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 10px;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--gold-light);
+    }
+
+    /* References Section */
+    .references-section { background: var(--section-bg); }
+
+    .references-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      padding: 0 60px 80px;
+    }
+
+    .reference-card {
+      background: var(--warm-white);
+      border-radius: 16px;
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .reference-card::before {
+      content: '\201C';
+      font-family: 'Playfair Display', serif;
+      font-size: 100px;
+      color: var(--gold-light);
+      opacity: 0.12;
+      position: absolute;
+      top: -10px; left: 16px;
+      line-height: 1;
+    }
+
+    .reference-quote {
+      font-size: 14px;
+      font-style: italic;
+      line-height: 1.7;
+      color: var(--text);
+      position: relative;
+      z-index: 1;
+      margin-top: 24px;
+    }
+
+    .reference-author {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .reference-author-name {
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--charcoal);
+    }
+
+    .reference-author-title {
+      font-size: 13px;
+      color: var(--text-light);
+      margin-top: 2px;
+    }
+
+    .reference-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gold);
+      margin-top: 10px;
+      transition: color 0.3s;
+    }
+
+    .reference-download:hover { color: var(--gold-dark); }
+
+    /* Projects & Documents Grid */
+    .projects-section { background: var(--warm-white); }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      padding: 0 60px 80px;
+    }
+
+    .project-card {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--card-bg);
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+    }
+
+    .project-card-preview {
+      padding: 32px;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .project-card-icon {
+      width: 48px; height: 48px;
+      background: rgba(196, 162, 101, 0.15);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 16px;
+    }
+
+    .project-card-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--charcoal);
+      margin-bottom: 8px;
+    }
+
+    .project-card-subtitle {
+      font-size: 13px;
+      color: var(--text-light);
+      line-height: 1.5;
+    }
+
+    .project-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .project-type-badge {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--gold-dark);
+      background: rgba(196,162,101,0.15);
+      padding: 4px 12px;
+      border-radius: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .project-expand-hint {
+      font-size: 12px;
+      color: var(--text-light);
+      font-weight: 500;
+    }
+
+    /* Modal / Expandable Overlay */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 300;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      padding: 40px;
+    }
+
+    .modal-overlay.active { opacity: 1; pointer-events: all; }
+
+    .modal-content {
+      background: var(--warm-white);
+      border-radius: 20px;
+      max-width: 800px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 48px;
+      position: relative;
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+    }
+
+    .modal-overlay.active .modal-content { transform: translateY(0); }
+
+    .modal-close {
+      position: absolute;
+      top: 20px; right: 24px;
+      font-size: 28px;
+      cursor: pointer;
+      color: var(--text-light);
+      font-weight: 300;
+      width: 40px; height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: background 0.3s;
+    }
+
+    .modal-close:hover { background: var(--card-bg); }
+
+    .modal-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--charcoal);
+      margin-bottom: 24px;
+      padding-right: 40px;
+    }
+
+    .modal-body { font-size: 14px; line-height: 1.8; color: var(--text); }
+
+    .modal-body p { margin-bottom: 16px; }
+
+    .modal-download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gold);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 12px 28px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      margin-top: 24px;
+      transition: background 0.3s;
+    }
+
+    .modal-download-btn:hover { background: var(--gold-dark); }
+
+    /* Documents Section (Resume & Cover Letter) */
+    .documents-section { background: var(--section-bg); }
+
+    .documents-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      padding: 0 60px 80px;
+    }
+
+    .document-card {
+      background: var(--warm-white);
+      border-radius: 16px;
+      padding: 40px;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+      border: 2px solid transparent;
+    }
+
+    .document-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+      border-color: var(--gold-light);
+    }
+
+    .document-card-icon {
+      font-size: 40px;
+      margin-bottom: 16px;
+    }
+
+    .document-card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--charcoal);
+    }
+
+    .document-card-desc {
+      font-size: 14px;
+      color: var(--text-light);
+      margin-top: 8px;
+      line-height: 1.6;
+    }
+
+    .document-card-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gold);
+      margin-top: 20px;
+    }
+
+    /* Contact Section */
+    .contact-section {
+      background: var(--charcoal);
+      color: #fff;
+      padding: 100px 60px 60px;
+      min-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .contact-top {
+      display: flex;
+      justify-content: flex-end;
+      gap: 32px;
+      margin-bottom: 60px;
+    }
+
+    .contact-social-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.6);
+      transition: color 0.3s;
+    }
+
+    .contact-social-link:hover { color: var(--gold-light); }
+
+    .contact-cta-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 4.5vw, 48px);
+      font-weight: 600;
+      line-height: 1.3;
+      letter-spacing: -1px;
+      color: rgba(255,255,255,0.4);
+      max-width: 800px;
+      margin-bottom: 40px;
+    }
+
+    .contact-actions {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 80px;
+    }
+
+    .get-in-touch-btn {
+      background: var(--gold);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 16px 36px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .get-in-touch-btn:hover { background: var(--gold-dark); }
+
+    .available-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .available-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--accent-green);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .footer-col {
+      font-size: 13px;
+      color: rgba(255,255,255,0.35);
+      line-height: 1.6;
+    }
+
+    .footer-col a { color: rgba(255,255,255,0.35); transition: color 0.3s; }
+    .footer-col a:hover { color: var(--gold-light); }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInScale {
+      from { opacity: 0; transform: scale(0); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .animate-up {
+      opacity: 0;
+      animation: fadeInUp 1s cubic-bezier(0.42, 0.21, 0, 1) forwards;
+    }
+
+    .animate-scale {
+      opacity: 0;
+      animation: fadeInScale 1s cubic-bezier(0, 0.13, 0, 0.98) forwards;
+    }
+
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* Certifications row */
+    .certs-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 0 60px 60px;
+    }
+
+    .cert-badge {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 8px 18px;
+      border-radius: 24px;
+      background: var(--warm-white);
+      color: var(--gold-dark);
+      border: 1px solid var(--border);
+      letter-spacing: 0.5px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header { padding: 18px 24px; }
+      .hero { padding: 110px 24px 50px; }
+      .hero-name { font-size: 48px; letter-spacing: -1px; }
+      .hero-top { flex-direction: column-reverse; gap: 24px; }
+      .hero-name-block { max-width: 100%; }
+      .hero-avatar-wrapper { width: 130px; height: 130px; }
+      .hero-bottom { flex-direction: column; gap: 24px; align-items: flex-start; }
+      .hero-intro { text-align: left; max-width: 100%; }
+      .section-label-row { padding: 50px 24px 24px; }
+      .clinical-grid, .references-grid, .projects-grid, .documents-grid { grid-template-columns: 1fr; padding: 0 24px 50px; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); padding: 0 24px 50px; }
+      .about-content { padding: 0 24px 50px; }
+      .about-row { flex-direction: column; }
+      .about-image { width: 100%; }
+      .about-details { max-width: 100%; }
+      .work-timeline { padding: 0 24px 50px; }
+      .certs-row { padding: 0 24px 50px; }
+      .contact-section { padding: 60px 24px 40px; }
+      .contact-top { justify-content: flex-start; flex-wrap: wrap; }
+      .footer { flex-direction: column; gap: 16px; align-items: flex-start; }
+      .nav-close { right: 24px; }
+      .modal-overlay { padding: 16px; }
+      .modal-content { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">ella demian</div>
+    <div class="nav-toggle" onclick="document.querySelector('.nav-overlay').classList.add('active')">
+      <span></span><span></span><span></span><span></span>
+    </div>
+  </header>
+
+  <!-- Nav Overlay -->
+  <nav class="nav-overlay">
+    <div class="nav-close" onclick="document.querySelector('.nav-overlay').classList.remove('active')">&times;</div>
+    <a href="#about" onclick="closeNav()">About</a>
+    <a href="#clinical" onclick="closeNav()">Clinical Experience</a>
+    <a href="#experience" onclick="closeNav()">Work Experience</a>
+    <a href="#references" onclick="closeNav()">References</a>
+    <a href="#projects" onclick="closeNav()">Projects</a>
+    <a href="#documents" onclick="closeNav()">Resume & Cover Letter</a>
+    <a href="#contact" onclick="closeNav()">Contact</a>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-top">
+      <div class="hero-name-block">
+        <h1 class="hero-name animate-up">ELLA DEMIAN</h1>
+        <p class="hero-credentials animate-up delay-1">BSN (Candidate) &bull; RN (Candidate)</p>
+      </div>
+      <div class="hero-avatar-wrapper animate-scale delay-1"><img class="hero-avatar" src="ella%20photo.jpeg" alt="Ella Demian" /></div>
+    </div>
+    <div class="hero-bottom">
+      <div class="hero-email animate-up delay-2" onclick="copyEmail(this)">
+        <span class="copy-text">ellaademian@gmail.com</span>
+        <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path>
+        </svg>
+      </div>
+      <p class="hero-intro animate-up delay-3">
+        Compassionate BSN candidate with <span>700+ clinical hours</span> across diverse settings, ready to deliver patient-centered care with empathy and precision.
+      </p>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about-section">
+    <div class="section-label-row">
+      <span class="section-label reveal">about.</span>
+      <span class="section-badge reveal">Santa Clarita, CA</span>
+    </div>
+    <div class="about-content">
+      <p class="about-text-large reveal">
+        A future nurse driven by compassion, clinical excellence, and a deep commitment to whole-person care across every patient population.
+      </p>
+      <div class="about-row">
+        <img class="about-image reveal" src="ella%20photo.jpeg" alt="Ella Demian" loading="lazy" />
+        <div class="about-details reveal">
+          <p class="about-description">
+            Ella is graduating from Mount Saint Mary's University with a BSN, building on a prior Bachelor of Science in Psychology from CSU Channel Islands. With close to 700 clinical hours spanning neurology, orthopedics, pediatrics, psychiatric emergency, OBGYN, oncology, and ICU settings, she brings a uniquely well-rounded clinical foundation. Bilingual in English and Hebrew, she is recognized for remaining calm in high-acuity environments, advocating fiercely for her patients, and collaborating seamlessly with interdisciplinary teams. Her five years of professional experience in TMS therapy and behavioral health give her an additional edge in understanding both the physical and psychological dimensions of patient care.
+          </p>
+          <div class="about-tags">
+            <span class="about-tag">Patient Advocacy</span>
+            <span class="about-tag">Bilingual (Hebrew)</span>
+            <span class="about-tag">EHR Proficient</span>
+            <span class="about-tag">Mental Health</span>
+            <span class="about-tag">Critical Thinking</span>
+            <span class="about-tag">Culturally Sensitive Care</span>
+            <span class="about-tag">CNSA Board Member</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats Row -->
+    <div class="stats-row">
+      <div class="stat-card reveal">
+        <div class="stat-number">700+</div>
+        <div class="stat-label">Clinical Hours</div>
+      </div>
+      <div class="stat-card reveal">
+        <div class="stat-number">10</div>
+        <div class="stat-label">Clinical Rotations</div>
+      </div>
+      <div class="stat-card reveal">
+        <div class="stat-number">5+</div>
+        <div class="stat-label">Years Patient Care</div>
+      </div>
+      <div class="stat-card reveal">
+        <div class="stat-number">6</div>
+        <div class="stat-label">Certifications</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Clinical Experience -->
+  <section id="clinical" class="clinical-section">
+    <div class="section-label-row">
+      <span class="section-label reveal">clinical experience.</span>
+      <span class="section-badge reveal">UCLA Health System & More</span>
+    </div>
+    <div class="clinical-grid">
+      <div class="clinical-card reveal">
+        <div class="clinical-card-title">Fundamentals of Nursing</div>
+        <div class="clinical-card-facility">UCLA Ronald Reagan Medical Center</div>
+        <div class="clinical-card-detail">6N Neurology</div>
+        <span class="clinical-card-hours">117 Hours</span>
+      </div>
+      <div class="clinical-card reveal">
+        <div class="clinical-card-title">Medical Surgical</div>
+        <div class="clinical-card-facility">UCLA Santa Monica Medical Center</div>
+        <div class="clinical-card-detail">3NW Orthopedics</div>
+        <span class="clinical-card-hours">134 Hours</span>
+      </div>
+      <div class="clinical-card reveal">
+        <div class="clinical-card-title">Advanced Medical Surgical</div>
+        <div class="clinical-card-facility">UCLA Santa Monica Medical Center</div>
+        <div class="clinical-card-detail">3NW Orthopedics</div>
+        <span class="clinical-card-hours">53.5 Hours</span>
+      </div>
+      <div class="clinical-card reveal">
+        <div class="clinical-card-title">Mental Health</div>
+        <div class="clinical-card-facility">Harbor UCLA Medical Center</div>
+        <div class="clinical-card-detail">Adult & Peds Psych ER / 8 West / CRU</div>
+        <span class="clinical-card-hours">70 Hours</span>
+      </div>
+      <div class="clinical-card reveal">
+        <div class="clinical-card-title">Pediatrics</div>
+        <div class="clinical-card-facility">UCLA Mattel Children's Hospital</div>
+        <div class="clinical-card-detail">PICU / 5 West / 3F</div>
+        <span class="clinical-card-hours">78 Hours</span>
+      </div>
+      <div class="clinical-card reveal">
+        <div class="clinical-card-title">OBGYN</div>
+        <div class="clinical-card-facility">Little Company of Mary, Torrance</div>
+        <div class="clinical-card-detail">Labor & Delivery / Postpartum</div>
+        <span class="clinical-card-hours">70.5 Hours</span>
+      </div>
+      <div class="clinical-card reveal">
+        <div class="clinical-card-title">Gerontology</div>
+        <div class="clinical-card-facility">UCLA Santa Monica Medical Center</div>
+        <div class="clinical-card-detail">5NW Gerontology Unit</div>
+        <span class="clinical-card-hours">63 Hours</span>
+      </div>
+      <div class="clinical-card reveal">
+        <div class="clinical-card-title">Community Health</div>
+        <div class="clinical-card-facility">Norwalk La Mirada Preschool</div>
+        <div class="clinical-card-detail">Community Health Nursing</div>
+        <span class="clinical-card-hours">108.5 Hours</span>
+      </div>
+      <div class="clinical-card reveal">
+        <div class="clinical-card-title">Transitions to Professional Practice</div>
+        <div class="clinical-card-facility">Little Company of Mary, Torrance</div>
+        <div class="clinical-card-detail">ICU</div>
+        <span class="clinical-card-hours">In Progress</span>
+      </div>
+      <div class="clinical-card reveal">
+        <div class="clinical-card-title">Leadership</div>
+        <div class="clinical-card-facility">UCLA Santa Monica Medical Center</div>
+        <div class="clinical-card-detail">4NW Oncology</div>
+        <span class="clinical-card-hours">In Progress</span>
+      </div>
+    </div>
+
+    <!-- Certifications -->
+    <div class="certs-row">
+      <span class="cert-badge reveal">BLS Certified</span>
+      <span class="cert-badge reveal">ACLS Certified</span>
+      <span class="cert-badge reveal">PALS Certified</span>
+      <span class="cert-badge reveal">Adult & Pediatric First Aid/CPR/AED</span>
+      <span class="cert-badge reveal">Neurostar TMS Clinical Certification</span>
+      <span class="cert-badge reveal">REMS Spravato/Ketamine Administration</span>
+      <span class="cert-badge reveal">Mandated Reporter</span>
+      <span class="cert-badge reveal">LAFD Fire Safety</span>
+    </div>
+  </section>
+
+  <!-- Work Experience -->
+  <section id="experience" class="work-section">
+    <div class="section-label-row">
+      <span class="section-label reveal">work experience.</span>
+    </div>
+    <div class="work-timeline">
+      <div class="work-item reveal">
+        <div class="work-dates">Jul 2022 - May 2025</div>
+        <div class="work-title">TMS/Spravato Senior Technician</div>
+        <div class="work-company">SoCalTMS Center &bull; Thousand Oaks, CA</div>
+        <ul class="work-bullets">
+          <li>Administered transcranial magnetic stimulation treatments to patients with treatment-resistant depression, monitoring for adverse reactions throughout each session</li>
+          <li>Conducted patient assessments including PHQ-9 and GAD-7 screenings to track treatment progress and report changes to supervising physician</li>
+          <li>Educated patients on treatment protocols, expected outcomes, and potential side effects to ensure informed consent and reduce anxiety</li>
+          <li>Maintained detailed electronic treatment records and ensured compliance with clinic documentation standards</li>
+        </ul>
+      </div>
+      <div class="work-item reveal">
+        <div class="work-dates">Apr 2020 - Jul 2022</div>
+        <div class="work-title">Behavioral Technician</div>
+        <div class="work-company">Cliffside Malibu Treatment Center &bull; Malibu, CA</div>
+        <ul class="work-bullets">
+          <li>Provided direct patient care in a residential behavioral health setting, monitoring clients for safety and behavioral changes</li>
+          <li>De-escalated crisis situations using therapeutic communication techniques</li>
+          <li>Documented patient behaviors, vitals, and incident reports per facility protocols</li>
+        </ul>
+      </div>
+      <div class="work-item reveal">
+        <div class="work-dates">Jan 2019 - Mar 2020</div>
+        <div class="work-title">Assistant General Manager</div>
+        <div class="work-company">Fitness 19 &bull; Simi Valley, CA</div>
+        <ul class="work-bullets">
+          <li>Managed daily gym operations including member onboarding, safety orientations, and facility maintenance</li>
+          <li>Supervised front desk staff and resolved member concerns</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- References -->
+  <section id="references" class="references-section">
+    <div class="section-label-row">
+      <span class="section-label reveal">references.</span>
+      <span class="section-badge reveal">Letters of Recommendation</span>
+    </div>
+    <div class="references-grid">
+      <div class="reference-card reveal">
+        <p class="reference-quote">"She will one day make an excellent nurse, given all of her qualities. Her position is multifaceted, requiring a personal touch with patients, an administrative role to manage documentation, and technical expertise to safely and effectively administer treatment. She had done an excellent job in all areas."</p>
+        <div class="reference-author">
+          <div class="reference-author-name">Shameer Debnath, MD, FAPA, FASAM</div>
+          <div class="reference-author-title">Medical Director, Southern California TMS Center</div>
+          <a href="LOR_Dr_Debnath.pdf" class="reference-download" download>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download Full Letter
+          </a>
+        </div>
+      </div>
+      <div class="reference-card reveal">
+        <p class="reference-quote">"She is already the kind of nurse I would want caring for my children: Someone who genuinely cares and advocates with a gentle yet fierce presence. She exhibited excellent critical thinking skills and her ability to reflect on patient cases with deep compassion was refreshing to witness."</p>
+        <div class="reference-author">
+          <div class="reference-author-name">Marites Narciso, RN, BSN, CPN</div>
+          <div class="reference-author-title">Pediatrics Clinical Instructor, UCLA Mattel Children's Hospital</div>
+          <a href="LOR_Narciso.pdf" class="reference-download" download>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download Full Letter
+          </a>
+        </div>
+      </div>
+      <div class="reference-card reveal">
+        <p class="reference-quote">"Emmanuelle consistently demonstrated a strong grasp of nursing fundamentals, critical thinking, and evidence-based practice. She approaches each patient with empathy, respect, and cultural sensitivity. Her professionalism, reliability, and willingness to take initiative set her apart from her peers."</p>
+        <div class="reference-author">
+          <div class="reference-author-name">Shabanam Khan, MSN, BSN, PHN, CLE, RN</div>
+          <div class="reference-author-title">Adjunct Clinical Professor, Mount Saint Mary's University</div>
+          <a href="LOR_Prof_Khan.pdf" class="reference-download" download>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download Full Letter
+          </a>
+        </div>
+      </div>
+      <div class="reference-card reveal">
+        <p class="reference-quote">"Ella provided culturally sensitive care for patients with a variety of neurological problems. She was always perceptive to each patient's unique needs, anticipated possible complications, and prepared to address all of them timely and effectively. Unit nurses commended her gentle, compassionate, and positive attitude."</p>
+        <div class="reference-author">
+          <div class="reference-author-name">Joulia Skibinsky, MSN-Ed, RN</div>
+          <div class="reference-author-title">Assistant Professor, Mount Saint Mary's University</div>
+          <a href="LOR_Prof_Skibinsky.pdf" class="reference-download" download>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download Full Letter
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="projects-section">
+    <div class="section-label-row">
+      <span class="section-label reveal">projects.</span>
+      <span class="section-badge reveal">Academic Work</span>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card reveal" onclick="openModal('modal-chronic-pain')">
+        <div class="project-card-preview">
+          <div>
+            <div class="project-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+            <div class="project-card-title">Chronic Pain & Integrative Therapies</div>
+            <div class="project-card-subtitle">NUR 168 group presentation exploring complementary and alternative medicine approaches for chronic pain management, including acupuncture, yoga, massage therapy, and mindfulness-based interventions.</div>
+          </div>
+          <div class="project-card-footer">
+            <span class="project-type-badge">Presentation</span>
+            <span class="project-expand-hint">Click to view &rarr;</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-card reveal" onclick="openModal('modal-preeclampsia')">
+        <div class="project-card-preview">
+          <div>
+            <div class="project-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+            <div class="project-card-title">Preeclampsia: Diagnosis & Nursing Care</div>
+            <div class="project-card-subtitle">Comprehensive group project covering pathophysiology, diagnostic criteria, risk factors, treatment protocols including magnesium sulfate management, and SBAR communication for severe preeclampsia scenarios.</div>
+          </div>
+          <div class="project-card-footer">
+            <span class="project-type-badge">Clinical Report</span>
+            <span class="project-expand-hint">Click to view &rarr;</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-card reveal" onclick="openModal('modal-hfmd')">
+        <div class="project-card-preview">
+          <div>
+            <div class="project-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+            <div class="project-card-title">Hand, Foot & Mouth Disease Brochure</div>
+            <div class="project-card-subtitle">Patient education brochure designed to communicate symptoms, transmission, and home care management for HFMD in pediatric populations, focused on accessible health literacy.</div>
+          </div>
+          <div class="project-card-footer">
+            <span class="project-type-badge">Patient Education</span>
+            <span class="project-expand-hint">Click to view &rarr;</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-card reveal" onclick="openModal('modal-blood-sugar')">
+        <div class="project-card-preview">
+          <div>
+            <div class="project-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+            <div class="project-card-title">Blood Sugar Management</div>
+            <div class="project-card-subtitle">Educational presentation on blood glucose monitoring, diabetes management strategies, and nursing interventions for patients with hyper/hypoglycemia in clinical settings.</div>
+          </div>
+          <div class="project-card-footer">
+            <span class="project-type-badge">Presentation</span>
+            <span class="project-expand-hint">Click to view &rarr;</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Resume & Cover Letter -->
+  <section id="documents" class="documents-section">
+    <div class="section-label-row">
+      <span class="section-label reveal">documents.</span>
+    </div>
+    <div class="documents-grid">
+      <div class="document-card reveal" onclick="openModal('modal-resume')">
+        <div class="document-card-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+        <div class="document-card-title">Resume</div>
+        <div class="document-card-desc">Full curriculum vitae including clinical experience, work history, certifications, education, and skills. Mount Saint Mary's University BSN candidate with 700+ clinical hours across UCLA Health and other top facilities.</div>
+        <div class="document-card-action">
+          View & Download &rarr;
+        </div>
+      </div>
+      <div class="document-card reveal" onclick="openModal('modal-cover-letter')">
+        <div class="document-card-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+        <div class="document-card-title">Cover Letter</div>
+        <div class="document-card-desc">Personalized cover letter for New Graduate RN Programs highlighting diverse clinical rotations, five years of direct patient care experience, and a deep commitment to compassionate, equitable nursing practice.</div>
+        <div class="document-card-action">
+          View & Download &rarr;
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="contact-section">
+    <div class="contact-top"></div>
+    <div>
+      <p class="contact-cta-text reveal">
+        Looking for a compassionate, clinically prepared new graduate RN? Let's connect and talk about how I can contribute to your team.
+      </p>
+      <div class="contact-actions reveal">
+        <a href="mailto:ellaademian@gmail.com" class="get-in-touch-btn">Get in Touch</a>
+        <div class="available-badge">
+          <span class="available-dot"></span>
+          Available for New Grad RN Positions
+        </div>
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="footer-col">
+        818-451-3075<br>
+        <a href="mailto:ellaademian@gmail.com">ellaademian@gmail.com</a>
+      </div>
+      <div class="footer-col">
+        Mount Saint Mary's University<br>
+        BSN Candidate, Class of 2026
+      </div>
+      <div class="footer-col" style="text-align: right;">
+        Ella Demian &copy; 2026
+      </div>
+    </footer>
+  </section>
+
+  <!-- MODALS -->
+
+  <!-- Chronic Pain Modal -->
+  <div class="modal-overlay" id="modal-chronic-pain">
+    <div class="modal-content">
+      <div class="modal-close" onclick="closeModal('modal-chronic-pain')">&times;</div>
+      <div class="modal-title">Chronic Pain & Integrative Therapies</div>
+      <div class="modal-body">
+        <p><strong>Course:</strong> NUR 168 Integrative Theories & Practices</p>
+        <p>This group presentation explored complementary and alternative medicine (CAM) approaches for chronic pain management. The project covered chronic pain pathophysiology, evidence-based CAM modalities including acupuncture, massage therapy, yoga, chiropractic care, and mindfulness/meditation, along with safety considerations, ethical and legal principles, and financial considerations.</p>
+        <p>Key topics included the importance of integrating CAM into nursing care plans, reducing opioid reliance through non-pharmacologic approaches, building therapeutic relationships by being open to patient CAM use, and supporting culturally sensitive, patient-centered care.</p>
+        <p>The presentation concluded with a case study applying CAM interventions to a patient with chronic low back pain, demonstrating practical clinical application of integrative therapies.</p>
+      </div>
+      <a href="Chronic_Pain_Integrative_Therapies.pdf" class="modal-download-btn" download>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download PDF
+      </a>
+    </div>
+  </div>
+
+  <!-- Preeclampsia Modal -->
+  <div class="modal-overlay" id="modal-preeclampsia">
+    <div class="modal-content">
+      <div class="modal-close" onclick="closeModal('modal-preeclampsia')">&times;</div>
+      <div class="modal-title">Preeclampsia: Diagnosis & Nursing Care</div>
+      <div class="modal-body">
+        <p><strong>Institution:</strong> Mount Saint Mary's University</p>
+        <p>Comprehensive group project on preeclampsia covering the full clinical picture: pathophysiology of poor placental development leading to endothelial damage, diagnostic criteria (hypertension after 20 weeks with proteinuria or organ dysfunction), and differentiation from gestational and chronic hypertension.</p>
+        <p>The project included detailed coverage of risk factors, lab work interpretation (CBC, CMP, LDH, urine protein), fetal surveillance methods (NST, BPP, Doppler studies), and medical management including labetalol, hydralazine, nifedipine, and magnesium sulfate with calcium gluconate as antidote.</p>
+        <p>A complete nursing interventions section covered priorities such as seizure prevention, BP stabilization, fetal monitoring, and fluid balance management. The project culminated in a detailed SBAR communication scenario for a severe preeclampsia case with possible HELLP syndrome development.</p>
+      </div>
+      <a href="Preeclampsia_Project.pdf" class="modal-download-btn" download>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download PDF
+      </a>
+    </div>
+  </div>
+
+  <!-- HFMD Modal -->
+  <div class="modal-overlay" id="modal-hfmd">
+    <div class="modal-content">
+      <div class="modal-close" onclick="closeModal('modal-hfmd')">&times;</div>
+      <div class="modal-title">Hand, Foot & Mouth Disease Brochure</div>
+      <div class="modal-body">
+        <p>Patient education brochure designed for families and caregivers, covering the symptoms, transmission, and home care management of Hand, Foot & Mouth Disease (HFMD) in pediatric populations. The brochure focuses on accessible health literacy and practical guidance for parents.</p>
+      </div>
+      <a href="HFMD_Brochure.pdf" class="modal-download-btn" download>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download PDF
+      </a>
+    </div>
+  </div>
+
+  <!-- Blood Sugar Modal -->
+  <div class="modal-overlay" id="modal-blood-sugar">
+    <div class="modal-content">
+      <div class="modal-close" onclick="closeModal('modal-blood-sugar')">&times;</div>
+      <div class="modal-title">Blood Sugar Management Presentation</div>
+      <div class="modal-body">
+        <p>Educational presentation on blood glucose monitoring, diabetes management strategies, and nursing interventions for patients experiencing hyperglycemia and hypoglycemia in clinical settings. Covers assessment techniques, medication management, and patient education approaches.</p>
+      </div>
+      <a href="Blood_Sugar_Management.pdf" class="modal-download-btn" download>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download PDF
+      </a>
+    </div>
+  </div>
+
+  <!-- Resume Modal -->
+  <div class="modal-overlay" id="modal-resume">
+    <div class="modal-content" style="max-width: 900px; padding: 24px;">
+      <div class="modal-close" onclick="closeModal('modal-resume')">&times;</div>
+      <div class="modal-title">Resume</div>
+      <iframe src="Ella_Demian_Resume.pdf#toolbar=0&navpanes=0&scrollbar=1&view=FitH" style="width: 100%; height: 65vh; border: none; border-radius: 8px; background: #f5f5f5;"></iframe>
+      <a href="Ella_Demian_Resume.pdf" class="modal-download-btn" download>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Resume (PDF)
+      </a>
+    </div>
+  </div>
+
+  <!-- Cover Letter Modal -->
+  <div class="modal-overlay" id="modal-cover-letter">
+    <div class="modal-content" style="max-width: 900px; padding: 24px;">
+      <div class="modal-close" onclick="closeModal('modal-cover-letter')">&times;</div>
+      <div class="modal-title">Cover Letter</div>
+      <iframe src="Ella_Demian_Cover_Letter.pdf#toolbar=0&navpanes=0&scrollbar=1&view=FitH" style="width: 100%; height: 65vh; border: none; border-radius: 8px; background: #f5f5f5;"></iframe>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+        <a href="Ella_Demian_Cover_Letter.pdf" class="modal-download-btn" download>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download PDF
+        </a>
+        <a href="Ella_Demian_Cover_Letter.docx" class="modal-download-btn" style="background: var(--gold-dark);" download>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download DOCX
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // Copy email with revert
+    function copyEmail(el) {
+      navigator.clipboard.writeText('ellaademian@gmail.com');
+      var span = el.querySelector('.copy-text');
+      span.textContent = 'Copied!';
+      setTimeout(function() { span.textContent = 'ellaademian@gmail.com'; }, 2000);
+    }
+
+    // Nav
+    function closeNav() {
+      document.querySelector('.nav-overlay').classList.remove('active');
+    }
+
+    // Modals
+    function openModal(id) {
+      document.getElementById(id).classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Close modal on overlay click
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+          overlay.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+    });
+
+    // ESC key closes modals
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal-overlay.active').forEach(m => {
+          m.classList.remove('active');
+        });
+        document.body.style.overflow = '';
+        document.querySelector('.nav-overlay').classList.remove('active');
+      }
+    });
+  </script>
+
+</body>
+</html>
