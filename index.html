@@ -726,6 +726,65 @@
       margin-top: 20px;
     }
 
+    /* Education Section */
+    .education-section { background: var(--section-bg); }
+
+    .education-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      padding: 0 60px 80px;
+    }
+
+    .education-card {
+      background: var(--warm-white);
+      border-radius: 16px;
+      padding: 32px;
+      position: relative;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .education-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    }
+
+    .education-card-degree {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--charcoal);
+      margin-bottom: 4px;
+    }
+
+    .education-card-school {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--gold-dark);
+    }
+
+    .education-card-details {
+      font-size: 13px;
+      color: var(--text-light);
+      margin-top: 8px;
+      line-height: 1.6;
+    }
+
+    .education-card-year {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gold);
+      background: rgba(196,162,101,0.1);
+      padding: 4px 12px;
+      border-radius: 12px;
+      display: inline-block;
+      margin-top: 12px;
+    }
+
+    @media (max-width: 768px) {
+      .education-grid { grid-template-columns: 1fr; padding: 0 24px 50px; }
+    }
+
     /* Contact Section */
     .contact-section {
       background: var(--charcoal);
@@ -978,6 +1037,7 @@
     <a href="#about" onclick="closeNav()">About</a>
     <a href="#clinical" onclick="closeNav()">Clinical Experience</a>
     <a href="#experience" onclick="closeNav()">Work Experience</a>
+    <a href="#education" onclick="closeNav()">Education</a>
     <a href="#references" onclick="closeNav()">References</a>
     <a href="#projects" onclick="closeNav()">Projects</a>
     <a href="#documents" onclick="closeNav()">Resume & Cover Letter</a>
@@ -1127,6 +1187,9 @@
     </div>
 
     <!-- Certifications -->
+    <div class="section-label-row" style="padding-bottom: 20px;">
+      <span class="section-label reveal">certifications.</span>
+    </div>
     <div class="certs-row">
       <span class="cert-badge reveal">BLS Certified</span>
       <span class="cert-badge reveal">ACLS Certified</span>
@@ -1178,6 +1241,27 @@
     </div>
   </section>
 
+  <!-- Education -->
+  <section id="education" class="education-section">
+    <div class="section-label-row">
+      <span class="section-label reveal">education.</span>
+    </div>
+    <div class="education-grid">
+      <div class="education-card reveal">
+        <div class="education-card-degree">Bachelor of Science in Nursing (BSN)</div>
+        <div class="education-card-school">Mount Saint Mary's University, Los Angeles</div>
+        <div class="education-card-details">Accelerated BSN program with clinical rotations across UCLA Health System, Harbor UCLA, and community settings. CNSA Board Member.</div>
+        <span class="education-card-year">Expected 2026</span>
+      </div>
+      <div class="education-card reveal">
+        <div class="education-card-degree">Bachelor of Science in Psychology</div>
+        <div class="education-card-school">CSU Channel Islands</div>
+        <div class="education-card-details">Foundation in behavioral science, research methods, and human development. Provided a strong basis for patient-centered, holistic nursing practice.</div>
+        <span class="education-card-year">Completed</span>
+      </div>
+    </div>
+  </section>
+
   <!-- References -->
   <section id="references" class="references-section">
     <div class="section-label-row">
@@ -1186,22 +1270,22 @@
     </div>
     <div class="references-grid">
       <div class="reference-card reveal">
-        <p class="reference-quote">"She will one day make an excellent nurse, given all of her qualities. Her position is multifaceted, requiring a personal touch with patients, an administrative role to manage documentation, and technical expertise to safely and effectively administer treatment. She had done an excellent job in all areas."</p>
+        <p class="reference-quote">"She is already the kind of nurse I would want caring for my children: Someone who genuinely cares and advocates with a gentle yet fierce presence. She exhibited excellent critical thinking skills and her ability to reflect on patient cases with deep compassion was refreshing to witness."</p>
         <div class="reference-author">
-          <div class="reference-author-name">Shameer Debnath, MD, FAPA, FASAM</div>
-          <div class="reference-author-title">Medical Director, Southern California TMS Center</div>
-          <a href="LOR_Dr_Debnath.pdf" class="reference-download" download>
+          <div class="reference-author-name">Marites Narciso, RN, BSN, CPN</div>
+          <div class="reference-author-title">Pediatrics Clinical Instructor, UCLA Mattel Children's Hospital</div>
+          <a href="LOR_Narciso.pdf" class="reference-download" download>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             Download Full Letter
           </a>
         </div>
       </div>
       <div class="reference-card reveal">
-        <p class="reference-quote">"She is already the kind of nurse I would want caring for my children: Someone who genuinely cares and advocates with a gentle yet fierce presence. She exhibited excellent critical thinking skills and her ability to reflect on patient cases with deep compassion was refreshing to witness."</p>
+        <p class="reference-quote">"She will one day make an excellent nurse, given all of her qualities. Her position is multifaceted, requiring a personal touch with patients, an administrative role to manage documentation, and technical expertise to safely and effectively administer treatment. She had done an excellent job in all areas."</p>
         <div class="reference-author">
-          <div class="reference-author-name">Marites Narciso, RN, BSN, CPN</div>
-          <div class="reference-author-title">Pediatrics Clinical Instructor, UCLA Mattel Children's Hospital</div>
-          <a href="LOR_Narciso.pdf" class="reference-download" download>
+          <div class="reference-author-name">Shameer Debnath, MD, FAPA, FASAM</div>
+          <div class="reference-author-title">Medical Director, Southern California TMS Center</div>
+          <a href="LOR_Dr_Debnath.pdf" class="reference-download" download>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             Download Full Letter
           </a>
