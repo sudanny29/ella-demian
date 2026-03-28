@@ -1412,12 +1412,24 @@
       });
     });
 
-    // Copy email with revert
+    // Copy email with revert (fallback for HTTP)
     function copyEmail(el) {
-      navigator.clipboard.writeText('ellaademian@gmail.com');
+      var email = 'ellaademian@gmail.com';
       var span = el.querySelector('.copy-text');
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(email);
+      } else {
+        var textarea = document.createElement('textarea');
+        textarea.value = email;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+      }
       span.textContent = 'Copied!';
-      setTimeout(function() { span.textContent = 'ellaademian@gmail.com'; }, 2000);
+      setTimeout(function() { span.textContent = email; }, 2000);
     }
 
     // Nav
