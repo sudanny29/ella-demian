@@ -1002,7 +1002,9 @@
       .hero-bottom { flex-direction: column; gap: 24px; align-items: flex-start; }
       .hero-intro { text-align: left; max-width: 100%; }
       .section-label-row { padding: 50px 24px 24px; }
-      .clinical-grid, .references-grid, .projects-grid, .documents-grid { grid-template-columns: 1fr; padding: 0 24px 50px; }
+      .clinical-grid, .projects-grid, .documents-grid { grid-template-columns: 1fr; padding: 0 24px 50px; }
+      /* References get extra vertical breathing room on mobile so cards don't feel cramped */
+      .references-grid { grid-template-columns: 1fr; padding: 0 24px 50px; gap: 32px; }
       .stats-row { grid-template-columns: repeat(2, 1fr); padding: 0 24px 50px; }
       .about-content { padding: 0 24px 50px; }
       .about-row { flex-direction: column; }
@@ -1014,10 +1016,27 @@
       .contact-top { justify-content: flex-start; flex-wrap: wrap; }
       .footer { flex-direction: column; gap: 16px; align-items: flex-start; }
       .nav-close { right: 24px; }
-      .nav-overlay a { font-size: 28px; text-align: center; }
+      /* Nav: tighter gap + controlled width so long links like "Resume & Cover Letter" stay centered */
+      .nav-overlay { gap: 18px; padding: 80px 24px 40px; }
+      .nav-overlay a {
+        font-size: 26px;
+        text-align: center;
+        width: 100%;
+        max-width: 320px;
+        line-height: 1.2;
+        word-break: keep-all;
+      }
       .section-label-row { flex-direction: column; gap: 12px; align-items: flex-start; }
       .modal-overlay { padding: 16px; }
       .modal-content { padding: 32px 24px; }
+      /* Give reference cards a bit more internal room on mobile */
+      .reference-card { padding: 28px 24px; }
+      .reference-author { margin-top: 24px; padding-top: 18px; }
+    }
+
+    /* Narrower phones: shrink nav link type so long labels stay on one line */
+    @media (max-width: 380px) {
+      .nav-overlay a { font-size: 22px; max-width: 280px; }
     }
   </style>
 </head>
