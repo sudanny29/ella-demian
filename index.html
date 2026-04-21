@@ -174,20 +174,32 @@
       margin-top: 60px;
     }
 
-    .hero-email {
+    /* Hero contact group stacks email + phone in a tight vertical block */
+    .hero-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .hero-email,
+    .hero-phone {
       display: flex;
       align-items: center;
       gap: 10px;
       font-size: 15px;
       font-weight: 500;
       color: var(--text-light);
-      cursor: pointer;
       transition: color 0.3s;
     }
 
-    .hero-email:hover { color: var(--gold); }
+    .hero-email { cursor: pointer; }
+    .hero-phone { text-decoration: none; }
 
-    .hero-email .copy-icon { width: 16px; height: 16px; opacity: 0.5; }
+    .hero-email:hover,
+    .hero-phone:hover { color: var(--gold); }
+
+    .hero-email .copy-icon,
+    .hero-phone .phone-icon { width: 16px; height: 16px; opacity: 0.5; }
 
     .hero-intro {
       max-width: 500px;
@@ -487,6 +499,38 @@
       border-top: 1px solid var(--border);
     }
 
+    /* Header row pairs circular avatar with author name/title */
+    .reference-author-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .reference-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--gold-light);
+      flex-shrink: 0;
+      background: var(--card-bg);
+    }
+
+    /* Monogram fallback when we don't have a reference photo */
+    .reference-avatar-initials {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      font-size: 20px;
+      color: var(--gold-dark);
+      background: var(--cream);
+      letter-spacing: 1px;
+    }
+
+    .reference-author-meta { min-width: 0; }
+
     .reference-author-name {
       font-weight: 700;
       font-size: 15px;
@@ -506,7 +550,7 @@
       font-size: 12px;
       font-weight: 600;
       color: var(--gold);
-      margin-top: 10px;
+      margin-top: 14px;
       transition: color 0.3s;
     }
 
@@ -1068,20 +1112,28 @@
     <div class="hero-top">
       <div class="hero-name-block">
         <h1 class="hero-name animate-up">ELLA DEMIAN</h1>
-        <p class="hero-credentials animate-up delay-1">BSN (Candidate) &bull; RN (Candidate)</p>
+        <p class="hero-credentials animate-up delay-1">BSN (c) &bull; RN (c) &bull; PHN (c)</p>
       </div>
       <div class="hero-avatar-wrapper animate-scale delay-1"><img class="hero-avatar" src="ella%20photo.jpeg" alt="Ella Demian" /></div>
     </div>
     <div class="hero-bottom">
-      <div class="hero-email animate-up delay-2" onclick="copyEmail(this)">
-        <span class="copy-text">ellaademian@gmail.com</span>
-        <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-          <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path>
-        </svg>
+      <div class="hero-contact animate-up delay-2">
+        <div class="hero-email" onclick="copyEmail(this)">
+          <span class="copy-text">ellaademian@gmail.com</span>
+          <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path>
+          </svg>
+        </div>
+        <a class="hero-phone" href="tel:+18184513075">
+          <span>818-451-3075</span>
+          <svg class="phone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"></path>
+          </svg>
+        </a>
       </div>
       <p class="hero-intro animate-up delay-3">
-        Compassionate BSN candidate with <span>700+ clinical hours</span> across diverse settings, ready to deliver patient-centered care with empathy and precision.
+        Compassionate BSN candidate with <span>800+ clinical hours</span> across diverse settings, ready to deliver patient-centered care with empathy and precision.
       </p>
     </div>
   </section>
@@ -1100,7 +1152,7 @@
         <img class="about-image reveal" src="ella%20photo.jpeg" alt="Ella Demian" loading="lazy" />
         <div class="about-details reveal">
           <p class="about-description">
-            Ella is graduating from Mount Saint Mary's University with a BSN, building on a prior Bachelor of Science in Psychology from CSU Channel Islands. With close to 700 clinical hours spanning neurology, orthopedics, pediatrics, psychiatric emergency, OBGYN, oncology, and ICU settings, she brings a uniquely well-rounded clinical foundation. Bilingual in English and Hebrew, she is recognized for remaining calm in high-acuity environments, advocating fiercely for her patients, and collaborating seamlessly with interdisciplinary teams. Her five years of professional experience in TMS therapy and behavioral health give her an additional edge in understanding both the physical and psychological dimensions of patient care.
+            Ella is graduating from Mount Saint Mary's University with a BSN, building on a prior Bachelor of Science in Psychology from CSU Channel Islands. With over 800 clinical hours spanning neurology, orthopedics, pediatrics, psychiatric emergency, OBGYN, oncology, and ICU settings, she brings a uniquely well-rounded clinical foundation. Bilingual in English and Hebrew, she is recognized for remaining calm in high-acuity environments, advocating fiercely for her patients, and collaborating seamlessly with interdisciplinary teams. Her five years of professional experience in TMS therapy and behavioral health give her an additional edge in understanding both the physical and psychological dimensions of patient care.
           </p>
           <div class="about-tags">
             <span class="about-tag">Patient Advocacy</span>
@@ -1118,7 +1170,7 @@
     <!-- Stats Row -->
     <div class="stats-row">
       <div class="stat-card reveal">
-        <div class="stat-number">700+</div>
+        <div class="stat-number">800+</div>
         <div class="stat-label">Clinical Hours</div>
       </div>
       <div class="stat-card reveal">
@@ -1194,14 +1246,14 @@
       <div class="clinical-card reveal">
         <div class="clinical-card-title">Transitions to Professional Practice</div>
         <div class="clinical-card-facility">Little Company of Mary, Torrance</div>
-        <div class="clinical-card-detail">ICU</div>
-        <span class="clinical-card-hours">In Progress</span>
+        <div class="clinical-card-detail">ICU / PCU</div>
+        <span class="clinical-card-hours">72 Hours</span>
       </div>
       <div class="clinical-card reveal">
         <div class="clinical-card-title">Leadership</div>
         <div class="clinical-card-facility">UCLA Santa Monica Medical Center</div>
-        <div class="clinical-card-detail">4NW Oncology</div>
-        <span class="clinical-card-hours">In Progress</span>
+        <div class="clinical-card-detail">4NW Hematology/Oncology</div>
+        <span class="clinical-card-hours">63 Hours</span>
       </div>
     </div>
 
@@ -1236,6 +1288,15 @@
           <li>Conducted patient assessments including PHQ-9 and GAD-7 screenings to track treatment progress and report changes to supervising physician</li>
           <li>Educated patients on treatment protocols, expected outcomes, and potential side effects to ensure informed consent and reduce anxiety</li>
           <li>Maintained detailed electronic treatment records and ensured compliance with clinic documentation standards</li>
+        </ul>
+      </div>
+      <div class="work-item reveal">
+        <div class="work-dates">May 2024 - May 2025</div>
+        <div class="work-title">Medical Reviewer / Scribe</div>
+        <div class="work-company">Patriot Care Center &bull; Beverly Hills, CA</div>
+        <ul class="work-bullets">
+          <li>Documented patient encounters in real time using EHR systems to support accurate, up-to-date clinical records</li>
+          <li>Reviewed medical records for completeness, accuracy, and compliance with documentation standards</li>
         </ul>
       </div>
       <div class="work-item reveal">
@@ -1291,8 +1352,13 @@
       <div class="reference-card reveal">
         <p class="reference-quote">"She is already the kind of nurse I would want caring for my children: Someone who genuinely cares and advocates with a gentle yet fierce presence. She exhibited excellent critical thinking skills and her ability to reflect on patient cases with deep compassion was refreshing to witness."</p>
         <div class="reference-author">
-          <div class="reference-author-name">Marites Narciso, RN, BSN, CPN</div>
-          <div class="reference-author-title">Pediatrics Clinical Instructor, UCLA Mattel Children's Hospital</div>
+          <div class="reference-author-header">
+            <img class="reference-avatar" src="ref_narciso.png" alt="Marites Narciso" loading="lazy" />
+            <div class="reference-author-meta">
+              <div class="reference-author-name">Marites Narciso, RN, BSN, CPN</div>
+              <div class="reference-author-title">Pediatrics Clinical Instructor, UCLA Mattel Children's Hospital</div>
+            </div>
+          </div>
           <a href="LOR_Narciso.pdf" class="reference-download" download>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             Download Full Letter
@@ -1302,8 +1368,13 @@
       <div class="reference-card reveal">
         <p class="reference-quote">"She will one day make an excellent nurse, given all of her qualities. Her position is multifaceted, requiring a personal touch with patients, an administrative role to manage documentation, and technical expertise to safely and effectively administer treatment. She had done an excellent job in all areas."</p>
         <div class="reference-author">
-          <div class="reference-author-name">Shameer Debnath, MD, FAPA, FASAM</div>
-          <div class="reference-author-title">Medical Director, Southern California TMS Center</div>
+          <div class="reference-author-header">
+            <img class="reference-avatar" src="ref_debnath.png" alt="Dr. Shameer Debnath" loading="lazy" />
+            <div class="reference-author-meta">
+              <div class="reference-author-name">Shameer Debnath, MD, FAPA, FASAM</div>
+              <div class="reference-author-title">Medical Director, Southern California TMS Center</div>
+            </div>
+          </div>
           <a href="LOR_Dr_Debnath.pdf" class="reference-download" download>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             Download Full Letter
@@ -1313,8 +1384,13 @@
       <div class="reference-card reveal">
         <p class="reference-quote">"Emmanuelle consistently demonstrated a strong grasp of nursing fundamentals, critical thinking, and evidence-based practice. She approaches each patient with empathy, respect, and cultural sensitivity. Her professionalism, reliability, and willingness to take initiative set her apart from her peers."</p>
         <div class="reference-author">
-          <div class="reference-author-name">Shabanam Khan, MSN, BSN, PHN, CLE, RN</div>
-          <div class="reference-author-title">Adjunct Clinical Professor, Mount Saint Mary's University</div>
+          <div class="reference-author-header">
+            <div class="reference-avatar reference-avatar-initials" aria-hidden="true">SK</div>
+            <div class="reference-author-meta">
+              <div class="reference-author-name">Shabanam Khan, MSN, BSN, PHN, CLE, RN</div>
+              <div class="reference-author-title">Adjunct Clinical Professor, Mount Saint Mary's University</div>
+            </div>
+          </div>
           <a href="LOR_Prof_Khan.pdf" class="reference-download" download>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             Download Full Letter
@@ -1324,8 +1400,13 @@
       <div class="reference-card reveal">
         <p class="reference-quote">"Ella provided culturally sensitive care for patients with a variety of neurological problems. She was always perceptive to each patient's unique needs, anticipated possible complications, and prepared to address all of them timely and effectively. Unit nurses commended her gentle, compassionate, and positive attitude."</p>
         <div class="reference-author">
-          <div class="reference-author-name">Joulia Skibinsky, MSN-Ed, RN</div>
-          <div class="reference-author-title">Assistant Professor, Mount Saint Mary's University</div>
+          <div class="reference-author-header">
+            <img class="reference-avatar" src="ref_skibinsky.png" alt="Joulia Skibinsky" loading="lazy" />
+            <div class="reference-author-meta">
+              <div class="reference-author-name">Joulia Skibinsky, MSN-Ed, RN</div>
+              <div class="reference-author-title">Assistant Professor, Mount Saint Mary's University</div>
+            </div>
+          </div>
           <a href="LOR_Prof_Skibinsky.pdf" class="reference-download" download>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             Download Full Letter
@@ -1394,6 +1475,19 @@
           </div>
         </div>
       </div>
+      <div class="project-card reveal" onclick="openModal('modal-clabsi')">
+        <div class="project-card-preview">
+          <div>
+            <div class="project-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M12 2v4"/><path d="M12 18v4"/><circle cx="12" cy="12" r="4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="M4.93 19.07l2.83-2.83"/><path d="M16.24 7.76l2.83-2.83"/></svg></div>
+            <div class="project-card-title">CLABSI Prevention</div>
+            <div class="project-card-subtitle">Evidence-based project on Central Line-Associated Bloodstream Infection prevention, including insertion and maintenance bundles, chlorhexidine protocols, and interdisciplinary strategies to reduce hospital-acquired infections.</div>
+          </div>
+          <div class="project-card-footer">
+            <span class="project-type-badge">Clinical Report</span>
+            <span class="project-expand-hint">Click to view &rarr;</span>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1406,7 +1500,7 @@
       <div class="document-card reveal" onclick="openModal('modal-resume')">
         <div class="document-card-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
         <div class="document-card-title">Resume</div>
-        <div class="document-card-desc">Full curriculum vitae including clinical experience, work history, certifications, education, and skills. Mount Saint Mary's University BSN candidate with 700+ clinical hours across UCLA Health and other top facilities.</div>
+        <div class="document-card-desc">Full curriculum vitae including clinical experience, work history, certifications, education, and skills. Mount Saint Mary's University BSN candidate with 800+ clinical hours across UCLA Health and other top facilities.</div>
         <div class="document-card-action">
           View & Download &rarr;
         </div>
@@ -1514,6 +1608,20 @@
         <p>Educational presentation on blood glucose monitoring, diabetes management strategies, and nursing interventions for patients experiencing hyperglycemia and hypoglycemia in clinical settings. Covers assessment techniques, medication management, and patient education approaches.</p>
       </div>
       <a href="Blood_Sugar_Management.pdf" class="modal-download-btn" download>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download PDF
+      </a>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-clabsi">
+    <div class="modal-content">
+      <div class="modal-close" onclick="closeModal('modal-clabsi')">&times;</div>
+      <div class="modal-title">CLABSI Prevention Project</div>
+      <div class="modal-body">
+        <p>Evidence-based project on preventing Central Line-Associated Bloodstream Infections (CLABSI), a leading cause of healthcare-associated infections. Covers insertion and maintenance bundles, chlorhexidine gluconate protocols, daily line necessity assessment, aseptic technique, and interdisciplinary strategies that nursing teams use to reduce infection rates and improve patient outcomes.</p>
+      </div>
+      <a href="CLABSI_Project.pdf" class="modal-download-btn" download>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Download PDF
       </a>
