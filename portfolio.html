@@ -330,6 +330,20 @@
       line-height: 1.4;
     }
 
+    /* Number ticker — counts up when card enters viewport */
+    .stat-number .ticker-val {
+      display: inline;
+    }
+    .stat-card.ticker-done .stat-number {
+      /* subtle settle pulse once counting finishes */
+      animation: ticker-settle 0.4s ease-out;
+    }
+    @keyframes ticker-settle {
+      0%   { transform: scale(1.08); }
+      60%  { transform: scale(0.97); }
+      100% { transform: scale(1); }
+    }
+
     /* Clinical Experience */
     .clinical-section { background: var(--section-bg); }
 
@@ -1082,6 +1096,121 @@
     @media (max-width: 380px) {
       .nav-overlay a { font-size: 22px; max-width: 280px; }
     }
+
+    /* ---- Hero name typewriter ----
+       Layout is locked from the start: the full "ELLA DEMIAN" is always rendered,
+       split into a typed (visible) span and a rest (transparent) span, so wrapping is
+       determined by the full text on every screen size — no reflow as letters appear.
+    */
+    .hero-name {
+      position: relative;
+      min-height: 1.05em;
+    }
+    .hero-name-typed { display: inline; }
+    .hero-name-rest {
+      display: inline;
+      color: transparent;
+      user-select: none;
+      pointer-events: none;
+    }
+    .hero-name-caret {
+      display: inline-block;
+      width: 5px;
+      height: 0.78em;
+      vertical-align: -0.05em;
+      background: var(--gold);
+      margin-left: 6px;
+      /* Negative right margin offsets the caret's layout footprint so it doesn't
+         contribute to text-wrapping decisions — prevents an end-of-line bump that
+         would force ELLA DEMIAN onto a second line. */
+      margin-right: -11px;
+      animation: hero-caret-blink 0.9s steps(1) infinite;
+      border-radius: 1px;
+    }
+    .hero-name-caret.done {
+      animation: none;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    @keyframes hero-caret-blink { 50% { opacity: 0; } }
+
+    /* ---- Hero credentials shimmer (animate-ui style) ---- */
+    .hero-credentials {
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      /* Default solid color, overridden when shimmer activates */
+      color: var(--gold);
+    }
+    .hero-credentials.shimmer-active {
+      opacity: 1;
+      /* Gradient sweeps a bright highlight across muted gold base text — once. */
+      background-image: linear-gradient(
+        110deg,
+        var(--gold) 0%,
+        var(--gold) 38%,
+        #fff5d6 48%,
+        #fffaeb 50%,
+        #fff5d6 52%,
+        var(--gold) 62%,
+        var(--gold) 100%
+      );
+      background-size: 250% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      /* One pass, ease-out so the highlight glides in fast then eases away — leaves solid gold behind */
+      animation: hero-credentials-shimmer 4.8s ease-out 1 forwards;
+    }
+    @keyframes hero-credentials-shimmer {
+      0%   { background-position: 250% 50%; }
+      100% { background-position: -150% 50%; }
+    }
+
+    /* ---- Heartbeat scrollbar on the right edge ---- */
+    .heartbeat-track {
+      position: fixed;
+      top: 0;
+      right: 8px;
+      width: 28px;
+      height: 100vh;
+      z-index: 90;
+      pointer-events: none;
+      opacity: 0.5;
+      transition: opacity 0.5s ease;
+    }
+    .heartbeat-track.scrolling { opacity: 1; }
+    .heartbeat-track svg { width: 100%; height: 100%; display: block; overflow: visible; }
+    .heartbeat-base {
+      fill: none;
+      stroke: rgba(196, 162, 101, 0.22);
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      vector-effect: non-scaling-stroke;
+    }
+    .heartbeat-progress {
+      fill: none;
+      stroke: var(--gold);
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      vector-effect: non-scaling-stroke;
+      filter: drop-shadow(0 0 4px rgba(196, 162, 101, 0.55));
+      transition: stroke-dashoffset 0.12s ease-out;
+    }
+
+    /* Hide custom scrollbar on small screens — too cramped */
+    @media (max-width: 600px) {
+      .heartbeat-track { display: none; }
+    }
+
+    /* Respect reduced-motion preference */
+    @media (prefers-reduced-motion: reduce) {
+      .hero-name-caret { animation: none; }
+      .hero-credentials.shimmer-active { animation: none; }
+      .heartbeat-progress { transition: none; }
+    }
   </style>
 </head>
 <body>
@@ -1111,8 +1240,10 @@
   <section class="hero">
     <div class="hero-top">
       <div class="hero-name-block">
-        <h1 class="hero-name animate-up">ELLA DEMIAN</h1>
-        <p class="hero-credentials animate-up delay-1">BSN (c) &bull; RN (c) &bull; PHN (c)</p>
+        <h1 class="hero-name">
+          <span class="hero-name-typed" id="hero-typed"></span><span class="hero-name-caret" id="hero-caret" aria-hidden="true"></span><span class="hero-name-rest" id="hero-rest" aria-hidden="true">ELLA DEMIAN</span>
+        </h1>
+        <p class="hero-credentials" id="hero-credentials">BSN (c) &bull; RN (c) &bull; PHN (c)</p>
       </div>
       <div class="hero-avatar-wrapper animate-scale delay-1"><img class="hero-avatar" src="ella%20photo.jpeg" alt="Ella Demian" /></div>
     </div>
@@ -1168,20 +1299,20 @@
 
     <!-- Stats Row -->
     <div class="stats-row">
-      <div class="stat-card reveal">
-        <div class="stat-number">800+</div>
+      <div class="stat-card reveal" data-ticker="800" data-ticker-suffix="+">
+        <div class="stat-number"><span class="ticker-val">800</span><span class="ticker-suffix">+</span></div>
         <div class="stat-label">Clinical Hours</div>
       </div>
-      <div class="stat-card reveal">
-        <div class="stat-number">10</div>
+      <div class="stat-card reveal" data-ticker="10" data-ticker-suffix="">
+        <div class="stat-number"><span class="ticker-val">10</span><span class="ticker-suffix"></span></div>
         <div class="stat-label">Clinical Rotations</div>
       </div>
-      <div class="stat-card reveal">
-        <div class="stat-number">5+</div>
+      <div class="stat-card reveal" data-ticker="5" data-ticker-suffix="+">
+        <div class="stat-number"><span class="ticker-val">5</span><span class="ticker-suffix">+</span></div>
         <div class="stat-label">Years Patient Care</div>
       </div>
-      <div class="stat-card reveal">
-        <div class="stat-number">6</div>
+      <div class="stat-card reveal" data-ticker="6" data-ticker-suffix="">
+        <div class="stat-number"><span class="ticker-val">6</span><span class="ticker-suffix"></span></div>
         <div class="stat-label">Certifications</div>
       </div>
     </div>
@@ -1681,6 +1812,20 @@
     </div>
   </div>
 
+  <!-- Heartbeat scrollbar: vertical ECG line on the right edge that fills with gold as you scroll, with a pulsing dot riding the leading edge -->
+  <div class="heartbeat-track" aria-hidden="true">
+    <svg viewBox="0 0 32 1000" preserveAspectRatio="none">
+      <!--
+        Five proper QRS-T heartbeats spaced down the viewport.
+        Each beat sequence: flat baseline -> subtle Q dip (left) -> sharp R peak (far left) ->
+        even sharper S valley (far right, deeper than R) -> small T rebound -> back to baseline.
+        The asymmetry between the R and S waves is what reads as "heartbeat" rather than zigzag.
+      -->
+      <path class="heartbeat-base" d="M16,0 L16,90 L14,98 L17,103 L4,112 L28,122 L17,128 L16,132 L16,290 L14,298 L17,303 L4,312 L28,322 L17,328 L16,332 L16,490 L14,498 L17,503 L4,512 L28,522 L17,528 L16,532 L16,690 L14,698 L17,703 L4,712 L28,722 L17,728 L16,732 L16,890 L14,898 L17,903 L4,912 L28,922 L17,928 L16,932 L16,1000" />
+      <path class="heartbeat-progress" id="heartbeat-progress" d="M16,0 L16,90 L14,98 L17,103 L4,112 L28,122 L17,128 L16,132 L16,290 L14,298 L17,303 L4,312 L28,322 L17,328 L16,332 L16,490 L14,498 L17,503 L4,512 L28,522 L17,528 L16,532 L16,690 L14,698 L17,703 L4,712 L28,722 L17,728 L16,732 L16,890 L14,898 L17,903 L4,912 L28,922 L17,928 L16,932 L16,1000" />
+    </svg>
+  </div>
+
   <script>
     // Scroll reveal
     const observer = new IntersectionObserver((entries) => {
@@ -1759,6 +1904,162 @@
         document.querySelector('.nav-overlay').classList.remove('active');
       }
     });
+
+    // ---- Number ticker on stats cards ----
+    (function() {
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const cards = Array.from(document.querySelectorAll('.stat-card[data-ticker]'));
+      if (!cards.length) return;
+
+      // Easing: ease-out cubic — fast start, slow finish
+      const easeOut = (t) => 1 - Math.pow(1 - t, 3);
+
+      // Pre-zero all ticker values immediately so there's no flash from final-value → 0
+      // when the animation starts. (HTML keeps final values as no-JS fallback.)
+      if (!reduced) {
+        cards.forEach(card => {
+          const valEl = card.querySelector('.ticker-val');
+          if (valEl) valEl.textContent = '0';
+        });
+      }
+
+      /**
+       * Animate a single stat card's number counting up from 0 to its target value.
+       * Duration scales with the target so larger numbers count more dramatically.
+       * @param {HTMLElement} card
+       */
+      function runTicker(card) {
+        const target = parseInt(card.dataset.ticker, 10);
+        const valEl = card.querySelector('.ticker-val');
+        if (!valEl) return;
+
+        if (reduced) {
+          // Respect prefers-reduced-motion — snap straight to final value
+          valEl.textContent = target;
+          card.classList.add('ticker-done');
+          return;
+        }
+
+        // Scale duration: larger targets feel more dramatic but cap at 1.6s
+        const duration = Math.max(800, Math.min(1600, target * 2));
+        const startTime = Date.now();
+
+        // Use setInterval (~60fps) instead of rAF so it fires in background tabs too
+        const ticker = setInterval(() => {
+          const elapsed = Date.now() - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const current = Math.round(easeOut(progress) * target);
+          valEl.textContent = current;
+
+          if (progress >= 1) {
+            clearInterval(ticker);
+            valEl.textContent = target;
+            card.classList.add('ticker-done');
+          }
+        }, 16);
+      }
+
+      // Fire cards sequentially: once the stats row enters the viewport,
+      // stagger each card's count-up start so they cascade one after another.
+      let triggered = false;
+      const staggerDelay = 220; // ms between each card's start
+
+      const io = new IntersectionObserver((entries) => {
+        if (triggered) return;
+        const visible = entries.some(e => e.isIntersecting);
+        if (!visible) return;
+
+        triggered = true;
+        io.disconnect();
+
+        // Each card starts staggerDelay ms after the previous one begins,
+        // creating a left-to-right cascade without waiting for full completion.
+        cards.forEach((card, i) => {
+          setTimeout(() => runTicker(card), i * staggerDelay);
+        });
+      }, { threshold: 0.3 });
+
+      // Observe the first card — once it's visible we start the chain
+      io.observe(cards[0]);
+    })();
+
+    // ---- Hero name typewriter + credentials shimmer ----
+    (function() {
+      const typed = document.getElementById('hero-typed');
+      const rest = document.getElementById('hero-rest');
+      const caret = document.getElementById('hero-caret');
+      const credentials = document.getElementById('hero-credentials');
+      if (!typed || !rest || !caret || !credentials) return;
+
+      const phrase = 'ELLA DEMIAN';
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Reduced motion: render final state immediately, no animation
+      if (reduced) {
+        typed.textContent = phrase;
+        rest.textContent = '';
+        caret.classList.add('done');
+        credentials.classList.add('shimmer-active');
+        return;
+      }
+
+      // Start with the full phrase parked in the (transparent) rest span so the
+      // hero-name's wrap layout is correct from frame 1, regardless of viewport.
+      typed.textContent = '';
+      rest.textContent = phrase;
+
+      let i = 0;
+      const tick = () => {
+        if (i <= phrase.length) {
+          // Move one more character from rest -> typed; total chars stay constant,
+          // so the wrap point of the hero-name never shifts during typing.
+          typed.textContent = phrase.slice(0, i);
+          rest.textContent = phrase.slice(i);
+          i += 1;
+          const ch = phrase[i - 1];
+          const delay = ch === ' ' ? 130 : 95 + Math.random() * 55;
+          setTimeout(tick, delay);
+        } else {
+          caret.classList.add('done');
+          setTimeout(() => credentials.classList.add('shimmer-active'), 220);
+        }
+      };
+      // Brief lead-in so fonts settle before typing begins
+      setTimeout(tick, 350);
+    })();
+
+    // ---- Heartbeat scrollbar (right-edge ECG progress indicator) ----
+    (function() {
+      const track = document.querySelector('.heartbeat-track');
+      const progress = document.getElementById('heartbeat-progress');
+      if (!track || !progress) return;
+
+      // Cache the path's intrinsic length so we can drive stroke-dashoffset by scroll percent
+      const totalLen = progress.getTotalLength();
+      progress.style.strokeDasharray = totalLen;
+      progress.style.strokeDashoffset = totalLen;
+
+      let scrollEndTimer = null;
+
+      const update = () => {
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = docHeight > 0
+          ? Math.min(1, Math.max(0, window.scrollY / docHeight))
+          : 0;
+        progress.style.strokeDashoffset = totalLen * (1 - pct);
+      };
+
+      const onScroll = () => {
+        track.classList.add('scrolling');
+        update();
+        clearTimeout(scrollEndTimer);
+        scrollEndTimer = setTimeout(() => track.classList.remove('scrolling'), 700);
+      };
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    })();
   </script>
 
 </body>
