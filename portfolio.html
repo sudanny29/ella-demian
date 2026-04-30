@@ -117,7 +117,7 @@
     /* Hero */
     .hero {
       min-height: 100vh;
-      padding: 140px 60px 80px;
+      padding: 80px 60px 80px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -128,7 +128,7 @@
     .hero-top {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
+      align-items: center;
     }
 
     .hero-name-block { max-width: 65%; }
@@ -158,6 +158,16 @@
       flex-shrink: 0;
       border: 4px solid var(--gold-light);
       box-shadow: 0 8px 32px rgba(196, 162, 101, 0.2);
+    }
+
+    /* Avatar holds itself invisible until the hero typewriter finishes,
+       then animates in with the same scale-fade as the original animate-scale. */
+    .hero-avatar-wait {
+      opacity: 0;
+      transform: scale(0);
+    }
+    .hero-avatar-wait.revealed {
+      animation: fadeInScale 1s cubic-bezier(0, 0.13, 0, 0.98) forwards;
     }
 
     .hero-avatar {
@@ -1052,9 +1062,9 @@
     /* Responsive */
     @media (max-width: 768px) {
       .header { padding: 18px 24px; }
-      .hero { padding: 110px 24px 50px; }
+      .hero { padding: 70px 24px 50px; }
       .hero-name { font-size: 48px; letter-spacing: -1px; }
-      .hero-top { flex-direction: column-reverse; gap: 24px; }
+      .hero-top { flex-direction: column; align-items: flex-start; gap: 24px; }
       .hero-name-block { max-width: 100%; }
       .hero-avatar-wrapper { width: 130px; height: 130px; }
       .hero-bottom { flex-direction: column; gap: 24px; align-items: flex-start; }
@@ -1098,13 +1108,14 @@
     }
 
     /* ---- Hero name typewriter ----
-       Layout is locked from the start: the full "ELLA DEMIAN" is always rendered,
+       Layout is locked from the start: the full "MEET ELLA DEMIAN" is always rendered,
        split into a typed (visible) span and a rest (transparent) span, so wrapping is
        determined by the full text on every screen size — no reflow as letters appear.
     */
     .hero-name {
       position: relative;
       min-height: 1.05em;
+      white-space: pre-line;
     }
     .hero-name-typed { display: inline; }
     .hero-name-rest {
@@ -1241,11 +1252,12 @@
     <div class="hero-top">
       <div class="hero-name-block">
         <h1 class="hero-name">
-          <span class="hero-name-typed" id="hero-typed"></span><span class="hero-name-caret" id="hero-caret" aria-hidden="true"></span><span class="hero-name-rest" id="hero-rest" aria-hidden="true">ELLA DEMIAN</span>
+          <span class="hero-name-typed" id="hero-typed"></span><span class="hero-name-caret" id="hero-caret" aria-hidden="true"></span><span class="hero-name-rest" id="hero-rest" aria-hidden="true">MEET
+ELLA DEMIAN</span>
         </h1>
         <p class="hero-credentials" id="hero-credentials">BSN (c) &bull; RN (c) &bull; PHN (c)</p>
       </div>
-      <div class="hero-avatar-wrapper animate-scale delay-1"><img class="hero-avatar" src="ella%20photo.jpeg" alt="Ella Demian" /></div>
+      <div class="hero-avatar-wrapper hero-avatar-wait" id="hero-avatar"><img class="hero-avatar" src="ella%20photo.jpeg" alt="Ella Demian" /></div>
     </div>
     <div class="hero-bottom">
       <div class="hero-contact animate-up delay-2">
@@ -1264,7 +1276,7 @@
         </a>
       </div>
       <p class="hero-intro animate-up delay-3">
-        Compassionate BSN candidate with <span>800+ clinical hours</span> across diverse settings, ready to deliver patient-centered care with empathy and precision.
+        A compassionate BSN candidate with <span>800+ clinical hours</span> across diverse settings, ready to deliver patient-centered care with empathy and precision.
       </p>
     </div>
   </section>
@@ -1277,13 +1289,13 @@
     </div>
     <div class="about-content">
       <p class="about-text-large reveal">
-        A future nurse driven by compassion, clinical excellence, and a deep commitment to whole-person care across every patient population.
+        Ella is a future nurse driven by compassion, clinical excellence, and a deep commitment to whole-person care across every patient population.
       </p>
       <div class="about-row">
         <img class="about-image reveal" src="ella%20photo.jpeg" alt="Ella Demian" loading="lazy" />
         <div class="about-details reveal">
           <p class="about-description">
-            Ella is graduating from Mount Saint Mary's University with a BSN, building on a prior Bachelor of Science in Psychology from CSU Channel Islands. With over 800 clinical hours spanning neurology, orthopedics, pediatrics, psychiatric emergency, OBGYN, oncology, and ICU settings, she brings a uniquely well-rounded clinical foundation. She is recognized for remaining calm in high-acuity environments, advocating fiercely for her patients, and collaborating seamlessly with interdisciplinary teams. Her five years of professional experience in TMS therapy and behavioral health give her an additional edge in understanding both the physical and psychological dimensions of patient care.
+            Graduating from Mount Saint Mary's University with a BSN, and building on a prior Bachelor of Science in Psychology from CSU Channel Islands, she brings over 800 hours of clinical experience spanning neurology, orthopedics, pediatrics, psychiatric emergency, OBGYN, oncology, and ICU settings. She is recognized for remaining calm in high-acuity environments, advocating fiercely for her patients, and collaborating seamlessly with interdisciplinary teams. Her five years of experience in TMS therapy and behavioral health sharpen her ability to deliver truly holistic care, grounded in both the physical and psychological needs of her patients.
           </p>
           <div class="about-tags">
             <span class="about-tag">Patient Advocacy</span>
@@ -1989,9 +2001,10 @@
       const rest = document.getElementById('hero-rest');
       const caret = document.getElementById('hero-caret');
       const credentials = document.getElementById('hero-credentials');
+      const avatar = document.getElementById('hero-avatar');
       if (!typed || !rest || !caret || !credentials) return;
 
-      const phrase = 'ELLA DEMIAN';
+      const phrase = 'MEET\nELLA DEMIAN';
       const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       // Reduced motion: render final state immediately, no animation
@@ -2000,6 +2013,7 @@
         rest.textContent = '';
         caret.classList.add('done');
         credentials.classList.add('shimmer-active');
+        if (avatar) avatar.classList.add('revealed');
         return;
       }
 
@@ -2017,11 +2031,12 @@
           rest.textContent = phrase.slice(i);
           i += 1;
           const ch = phrase[i - 1];
-          const delay = ch === ' ' ? 130 : 95 + Math.random() * 55;
+          const delay = ch === '\n' ? 220 : ch === ' ' ? 130 : 95 + Math.random() * 55;
           setTimeout(tick, delay);
         } else {
           caret.classList.add('done');
           setTimeout(() => credentials.classList.add('shimmer-active'), 220);
+          if (avatar) setTimeout(() => avatar.classList.add('revealed'), 360);
         }
       };
       // Brief lead-in so fonts settle before typing begins
