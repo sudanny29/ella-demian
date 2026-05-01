@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ella Demian — Coming Soon</title>
+  <meta name="description" content="A new nursing portfolio is on the way. Hold on tight." />
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" />
+  <style>
+    :root {
+      --cream: #f5efe6;
+      --warm-white: #fbf7f0;
+      --charcoal: #2b2b2b;
+      --text: #3a3a3a;
+      --text-light: #6f6a63;
+      --gold: #c4a265;
+      --gold-light: #d8be8a;
+      --gold-dark: #9d8045;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body { height: 100%; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--cream);
+      color: var(--charcoal);
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      cursor: default;
+    }
+
+    /* Soft gradient wash to keep the page from feeling flat */
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(216, 190, 138, 0.18), transparent 55%),
+        radial-gradient(circle at 80% 80%, rgba(196, 162, 101, 0.12), transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Header logo */
+    header {
+      position: relative;
+      z-index: 2;
+      padding: 28px 40px;
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--gold-dark);
+      letter-spacing: 0.5px;
+    }
+
+    /* Main hero block, vertically + horizontally centered */
+    main {
+      position: relative;
+      z-index: 2;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 24px;
+      text-align: center;
+    }
+
+    /* Pulsing heart with concentric rings */
+    .pulse-wrap {
+      position: relative;
+      width: 96px;
+      height: 96px;
+      margin-bottom: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .pulse-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 2px solid var(--gold-light);
+      opacity: 0.7;
+      animation: pulse 2.6s ease-out infinite;
+    }
+    .pulse-ring.delay-1 { animation-delay: 0.9s; }
+    .pulse-ring.delay-2 { animation-delay: 1.8s; }
+
+    body.boost .pulse-ring { animation-duration: 0.9s; }
+
+    .heart-icon {
+      width: 44px;
+      height: 44px;
+      color: var(--gold);
+      filter: drop-shadow(0 4px 12px rgba(196, 162, 101, 0.35));
+      animation: heart-beat 1.8s ease-in-out infinite;
+    }
+
+    body.boost .heart-icon { animation-duration: 0.6s; }
+
+    @keyframes pulse {
+      0%   { transform: scale(0.6); opacity: 0.85; }
+      80%  { transform: scale(1.8); opacity: 0; }
+      100% { transform: scale(1.8); opacity: 0; }
+    }
+
+    @keyframes heart-beat {
+      0%, 100% { transform: scale(1); }
+      18%      { transform: scale(1.12); }
+      30%      { transform: scale(0.96); }
+      45%      { transform: scale(1.06); }
+      60%      { transform: scale(1); }
+    }
+
+    /* Headline + typewriter caret */
+    .headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(40px, 7vw, 88px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -1.5px;
+      color: var(--charcoal);
+      min-height: 1.1em; /* prevent layout shift while typing */
+    }
+
+    .headline .typed { white-space: pre; }
+
+    .headline .caret {
+      display: inline-block;
+      width: 3px;
+      height: 0.85em;
+      vertical-align: -0.05em;
+      background: var(--gold);
+      margin-left: 6px;
+      animation: blink 0.9s steps(1) infinite;
+    }
+
+    .headline .caret.done { animation: none; opacity: 0; }
+
+    @keyframes blink { 50% { opacity: 0; } }
+
+    .subhead {
+      margin-top: 18px;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(18px, 2.6vw, 28px);
+      color: var(--text-light);
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .subhead.visible { opacity: 1; transform: translateY(0); }
+
+    .credentials {
+      margin-top: 28px;
+      font-size: 13px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0;
+      transition: opacity 0.8s ease 0.3s;
+    }
+    .credentials.visible { opacity: 1; }
+
+    .hint {
+      margin-top: 48px;
+      font-size: 12px;
+      letter-spacing: 1px;
+      color: var(--text-light);
+      opacity: 0;
+      transition: opacity 0.8s ease 0.6s;
+    }
+    .hint.visible { opacity: 0.7; }
+
+    /* ECG line at the bottom — SVG path that draws itself across the screen */
+    .ecg {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 80px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+
+    .ecg svg { width: 100%; height: 100%; display: block; }
+
+    .ecg-path {
+      fill: none;
+      stroke: var(--gold);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 1400;
+      stroke-dashoffset: 1400;
+      animation: draw 4s linear infinite;
+      filter: drop-shadow(0 2px 6px rgba(196, 162, 101, 0.35));
+    }
+
+    body.boost .ecg-path { animation-duration: 1.6s; }
+
+    @keyframes draw {
+      0%   { stroke-dashoffset: 1400; }
+      60%  { stroke-dashoffset: 0; }
+      100% { stroke-dashoffset: -1400; }
+    }
+
+    /* Footer microcopy */
+    footer {
+      position: relative;
+      z-index: 2;
+      padding: 16px 40px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--text-light);
+      letter-spacing: 0.5px;
+    }
+
+    footer a { color: var(--gold-dark); text-decoration: none; }
+    footer a:hover { color: var(--gold); }
+
+    @media (max-width: 600px) {
+      header { padding: 22px 24px; font-size: 20px; }
+      footer { padding: 14px 24px 20px; flex-direction: column; gap: 8px; text-align: center; }
+      .pulse-wrap { width: 80px; height: 80px; margin-bottom: 28px; }
+      .heart-icon { width: 36px; height: 36px; }
+      .hint { margin-top: 32px; }
+    }
+
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .pulse-ring, .heart-icon, .ecg-path, .caret { animation: none !important; }
+      .headline .typed::after { content: ""; }
+    }
+  </style>
+</head>
+<body>
+  <header>ella demian</header>
+
+  <main>
+    <div class="pulse-wrap" aria-hidden="true">
+      <span class="pulse-ring"></span>
+      <span class="pulse-ring delay-1"></span>
+      <span class="pulse-ring delay-2"></span>
+      <!-- Heart icon (Lucide-style) -->
+      <svg class="heart-icon" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true">
+        <path d="M12 21s-7-4.534-9.5-9C1.067 9.27 2.5 5 6.5 5c2 0 3.5 1 5.5 3 2-2 3.5-3 5.5-3 4 0 5.433 4.27 4 7-2.5 4.466-9.5 9-9.5 9z"/>
+      </svg>
+    </div>
+
+    <h1 class="headline">
+      <span class="typed" id="typed"></span><span class="caret" id="caret" aria-hidden="true"></span>
+    </h1>
+    <p class="subhead" id="subhead">Hold on tight.</p>
+    <p class="credentials" id="credentials">BSN (c) &middot; RN (c) &middot; PHN (c)</p>
+    <p class="hint" id="hint">tap anywhere to feel the pulse</p>
+  </main>
+
+  <div class="ecg" aria-hidden="true">
+    <svg viewBox="0 0 1400 80" preserveAspectRatio="none">
+      <!-- A flat baseline that ticks into a QRS-style heartbeat spike, then resumes flat -->
+      <path class="ecg-path" d="M0,40 L300,40 L340,40 L350,20 L360,60 L370,10 L380,55 L395,40 L700,40 L740,40 L750,20 L760,60 L770,10 L780,55 L795,40 L1100,40 L1140,40 L1150,20 L1160,60 L1170,10 L1180,55 L1195,40 L1400,40" />
+    </svg>
+  </div>
+
+  <footer>
+    <span>&copy; 2026 Ella Demian</span>
+    <span>Portfolio refreshing &mdash; back soon.</span>
+  </footer>
+
+  <script>
+    // Typewriter effect for the headline
+    const phrase = "Nurse in the making.";
+    const typedEl = document.getElementById('typed');
+    const caretEl = document.getElementById('caret');
+    const subhead = document.getElementById('subhead');
+    const credentials = document.getElementById('credentials');
+    const hint = document.getElementById('hint');
+
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReduced) {
+      typedEl.textContent = phrase;
+      caretEl.classList.add('done');
+      subhead.classList.add('visible');
+      credentials.classList.add('visible');
+      hint.classList.add('visible');
+    } else {
+      let i = 0;
+      const tick = () => {
+        if (i <= phrase.length) {
+          typedEl.textContent = phrase.slice(0, i);
+          i += 1;
+          // Slightly varied cadence makes the typing feel human rather than mechanical
+          const delay = phrase[i - 1] === ' ' ? 80 : 70 + Math.random() * 60;
+          setTimeout(tick, delay);
+        } else {
+          caretEl.classList.add('done');
+          subhead.classList.add('visible');
+          credentials.classList.add('visible');
+          setTimeout(() => hint.classList.add('visible'), 600);
+        }
+      };
+      // Small lead-in so the page doesn't start typing before fonts are visible
+      setTimeout(tick, 450);
+    }
+
+    // Click/tap anywhere to briefly speed up the heartbeat + ECG (interactive moment)
+    let boostTimer = null;
+    const triggerBoost = () => {
+      document.body.classList.add('boost');
+      clearTimeout(boostTimer);
+      boostTimer = setTimeout(() => document.body.classList.remove('boost'), 1600);
+    };
+    window.addEventListener('click', triggerBoost);
+    window.addEventListener('touchstart', triggerBoost, { passive: true });
+  </script>
+</body>
+</html>
