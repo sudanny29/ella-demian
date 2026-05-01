@@ -117,7 +117,7 @@
     /* Hero */
     .hero {
       min-height: 100vh;
-      padding: 80px 60px 80px;
+      padding: 130px 60px 80px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -139,13 +139,13 @@
       font-weight: 700;
       line-height: 0.95;
       letter-spacing: -3px;
-      color: var(--charcoal);
+      color: var(--gold);
     }
 
     .hero-credentials {
       font-size: 18px;
       font-weight: 500;
-      color: var(--gold);
+      color: var(--charcoal);
       margin-top: 16px;
       letter-spacing: 2px;
       text-transform: uppercase;
@@ -1062,7 +1062,7 @@
     /* Responsive */
     @media (max-width: 768px) {
       .header { padding: 18px 24px; }
-      .hero { padding: 70px 24px 50px; }
+      .hero { padding: 110px 24px 50px; }
       .hero-name { font-size: 48px; letter-spacing: -1px; }
       .hero-top { flex-direction: column; align-items: flex-start; gap: 24px; }
       .hero-name-block { max-width: 100%; }
@@ -1108,14 +1108,12 @@
     }
 
     /* ---- Hero name typewriter ----
-       Layout is locked from the start: the full "MEET ELLA DEMIAN" is always rendered,
-       split into a typed (visible) span and a rest (transparent) span, so wrapping is
-       determined by the full text on every screen size — no reflow as letters appear.
+       Each line ("MEET" then "ELLA DEMIAN") has its own typed/caret/rest group.
+       The rest span is parked at full text from frame 1 (color: transparent),
+       so the layout is locked and no reflow happens during typing.
     */
     .hero-name {
       position: relative;
-      min-height: 1.05em;
-      white-space: pre-line;
     }
     .hero-name-typed { display: inline; }
     .hero-name-rest {
@@ -1132,12 +1130,14 @@
       background: var(--gold);
       margin-left: 6px;
       /* Negative right margin offsets the caret's layout footprint so it doesn't
-         contribute to text-wrapping decisions — prevents an end-of-line bump that
-         would force ELLA DEMIAN onto a second line. */
+         contribute to text-wrapping decisions. */
       margin-right: -11px;
       animation: hero-caret-blink 0.9s steps(1) infinite;
       border-radius: 1px;
     }
+    /* Caret states: "pending" = not yet active (hidden, no blink),
+       "done" = finished typing (fades out). */
+    .hero-name-caret.pending,
     .hero-name-caret.done {
       animation: none;
       opacity: 0;
@@ -1150,20 +1150,20 @@
       opacity: 0;
       transition: opacity 0.6s ease;
       /* Default solid color, overridden when shimmer activates */
-      color: var(--gold);
+      color: var(--charcoal);
     }
     .hero-credentials.shimmer-active {
       opacity: 1;
-      /* Gradient sweeps a bright highlight across muted gold base text — once. */
+      /* Gradient sweeps a soft silver highlight across charcoal base text — once. */
       background-image: linear-gradient(
         110deg,
-        var(--gold) 0%,
-        var(--gold) 38%,
-        #fff5d6 48%,
-        #fffaeb 50%,
-        #fff5d6 52%,
-        var(--gold) 62%,
-        var(--gold) 100%
+        var(--charcoal) 0%,
+        var(--charcoal) 38%,
+        #b0b0b0 48%,
+        #d8d8d8 50%,
+        #b0b0b0 52%,
+        var(--charcoal) 62%,
+        var(--charcoal) 100%
       );
       background-size: 250% 100%;
       -webkit-background-clip: text;
@@ -1252,8 +1252,7 @@
     <div class="hero-top">
       <div class="hero-name-block">
         <h1 class="hero-name">
-          <span class="hero-name-typed" id="hero-typed"></span><span class="hero-name-caret" id="hero-caret" aria-hidden="true"></span><span class="hero-name-rest" id="hero-rest" aria-hidden="true">MEET
-ELLA DEMIAN</span>
+          <span class="hero-name-typed" id="hero-typed"></span><span class="hero-name-caret" id="hero-caret" aria-hidden="true"></span><span class="hero-name-rest" id="hero-rest" aria-hidden="true">ELLA DEMIAN</span>
         </h1>
         <p class="hero-credentials" id="hero-credentials">BSN (c) &bull; RN (c) &bull; PHN (c)</p>
       </div>
@@ -2004,7 +2003,7 @@ ELLA DEMIAN</span>
       const avatar = document.getElementById('hero-avatar');
       if (!typed || !rest || !caret || !credentials) return;
 
-      const phrase = 'MEET\nELLA DEMIAN';
+      const phrase = 'ELLA DEMIAN';
       const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       // Reduced motion: render final state immediately, no animation
@@ -2025,13 +2024,11 @@ ELLA DEMIAN</span>
       let i = 0;
       const tick = () => {
         if (i <= phrase.length) {
-          // Move one more character from rest -> typed; total chars stay constant,
-          // so the wrap point of the hero-name never shifts during typing.
           typed.textContent = phrase.slice(0, i);
           rest.textContent = phrase.slice(i);
           i += 1;
           const ch = phrase[i - 1];
-          const delay = ch === '\n' ? 220 : ch === ' ' ? 130 : 95 + Math.random() * 55;
+          const delay = ch === ' ' ? 130 : 95 + Math.random() * 55;
           setTimeout(tick, delay);
         } else {
           caret.classList.add('done');
